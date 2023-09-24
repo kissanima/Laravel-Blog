@@ -30,7 +30,8 @@
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url('login') }}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url('index.php/login') }}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url('index.php/register') }}">register</a></li>
                     </ul>
                 </div>
             </div>
@@ -119,7 +120,7 @@
                             <li class="list-inline-item">
                                 <a href="#!">
                                     <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fas fa-square fa-stack-2x"></i>
                                         <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
@@ -127,7 +128,7 @@
                             <li class="list-inline-item">
                                 <a href="#!">
                                     <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fas fa-square fa-stack-2x"></i>
                                         <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
@@ -135,7 +136,7 @@
                             <li class="list-inline-item">
                                 <a href="#!">
                                     <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fas fa-square fa-stack-2x"></i>
                                         <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
