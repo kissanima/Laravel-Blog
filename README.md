@@ -22,21 +22,26 @@ Before you begin, ensure you have met the following requirements:
 
 
 2. **Install Composer Dependencies:**
+    ```bash
     composer install
 
 
 3. **Run Database Migrations:**
+    ```bash
     php artisan migrate
 
 4. **Start the development server:**
+    ```bash
     php artisan serve
 
     The application will be available at http://localhost:8000.
 
 5. **Access the Application:**
+    ```bash
     Open your web browser and go to http://localhost:8000 to access the Laravel Blog.
 
 6. **Usage:**
+    ```bash
     Create, read, update, and delete blog posts.
     Comment on blog posts.
 
