@@ -35,3 +35,6 @@ Route::get('/blog/show/{post}', [BlogController::class, 'show'])->name('blog.sho
 
 Route::get('create', [BlogController::class, 'create_post'])->name('create_post');
 Route::post('/', [BlogController::class, 'blog_store'])->name('blog_store');
+
+Route::post('posts/{post}/comments', [BlogController::class, 'post_comment'])->name('post_comment');
+

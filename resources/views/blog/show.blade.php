@@ -22,31 +22,29 @@
 
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light" id="mainNav" style="background-color: grey; background-image: url('/assets/img/home-bg.jpg'); background-size: cover;">
+<nav class="navbar navbar-expand-lg navbar-light" id="mainNav" style="background-color: #343a40; background-image: url('/assets/img/home-bg.jpg'); background-size: cover;">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+        <a class="navbar-brand" href="{{ route('home') }}" style="color: #ffffff;">Laravel Blog</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarResponsive">
-            <ul class="navbar-nav py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('home') }}">Home</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('home') }}" style="color: #ffffff;">Home</a></li>
+
                 @guest
                     <!-- Display "Login" and "Register" links for guests -->
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('login') }}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('register') }}">Register</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('login') }}" style="color: #ffffff;">Login</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('register') }}" style="color: #ffffff;">Register</a></li>
                 @else
-                    <!-- Display user's name, "Create Post," and "Logout" link for authenticated users -->
-                    <li class="nav-item"><span class="nav-link px-lg-3 py-3 py-lg-4">Welcome, {{ auth()->user()->name }}</span></li>
-                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('create_post') }}">Create Post</a></li>
+                    <!-- Display "Create Post," user's name, and "Logout" link for authenticated users -->
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ route('create_post')}}" style="color: #ffffff;">Create Post</a></li>
+                    <li class="nav-item"><span class="nav-link px-lg-3 py-3 py-lg-4" style="color: #ffffff;">Welcome, {{ auth()->user()->name }}</span></li>
                     <li class="nav-item">
                         <form method="POST" action="{{ route('auth_logout') }}">
                             @csrf
-                            <button type="submit" class="btn btn-link nav-link px-lg-3 py-3 py-lg-4">Logout</button>
+                            <button type="submit" class="btn btn-link nav-link px-lg-3 py-3 py-lg-4" style="color: #ffffff;">Logout</button>
                         </form>
                     </li>
                 @endguest
@@ -55,19 +53,80 @@
     </div>
 </nav>
 
-I've added the justify-content-end class to the navbar-collapse div to move the navigation items to the right side of the navbar. This will align the navigation to the right while keeping the background color and image intact.
-
-
 
 
 
         
 <!-- Content Container -->
-<div class="container px-4 px-lg-5 mt-5"> <!-- Added 'mt-5' for top margin -->
-    <h1 class="text-center">{{ $post->title }}</h1>
-    <p class="text-center">{{ $post->created_at->format('F j, Y') }}</p>
-    <p class="text-center">{{ $post->content }}</p>
+<div class="container px-4 px-lg-5 mt-5 text-center" style="margin-top: 200px !important;">
+    <h1>{{ $post->title }}</h1>
+    <p class="lead">{{ $post->content }}</p>
+
+    <p class="text-muted">Posted by: 
+        @if ($post->user)
+            {{ $post->user->name }}
+        @else
+            Unknown User
+        @endif
+        on {{ $post->created_at->format('F j, Y') }}
+    </p>
 </div>
+<!-- Comments Section -->
+<div class="container px-4 px-lg-5 mt-5">
+    <h2>Comments</h2>
+
+    <!-- List of Comments -->
+    @if ($post->comments && count($post->comments) > 0)
+        <ul class="list-unstyled">
+            @foreach ($post->comments as $comment)
+                <li class="mb-3">
+                    <div class="comment">
+                        <div class="comment-header">
+                            <strong>{{ $comment->user ? $comment->user->name : 'Unknown User' }}</strong> on {{ $comment->created_at->format('F j, Y') }}
+                        </div>
+                        <div class="comment-content">
+                            {{ $comment->content }}
+                        </div>
+                    </div>
+                    <!-- Nested Replies -->
+                    @if ($comment->replies && count($comment->replies) > 0)
+                        @foreach ($comment->replies as $reply)
+                            <div class="reply ml-4">
+                                <div class="reply-header">
+                                    <strong>{{ $reply->user ? $reply->user->name : 'Unknown User' }}</strong> on {{ $reply->created_at->format('F j, Y') }}
+                                </div>
+                                <div class="reply-content">
+                                    {{ $reply->content }}
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                </li>
+            @endforeach
+        </ul>
+    @else
+        <p>No comments yet.</p>
+    @endif
+</div>
+
+
+
+
+
+<!-- Add this code below your post content -->
+<div class="container px-4 px-lg-5 mt-5">
+    <h3>Add a Comment</h3>
+    <form method="POST" action="{{ route('post_comment', ['post' => $post]) }}">
+        @csrf
+        <input type="hidden" name="post_id" value="{{ $post->id }}">
+        <div class="form-group">
+            <textarea name="content" class="form-control" rows="4" placeholder="Your comment..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+
 
 
 

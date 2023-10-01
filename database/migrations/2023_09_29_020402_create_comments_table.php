@@ -11,9 +11,13 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('post_id')->constrained();
-            $table->string('name');
+            $table->unsignedBigInteger('user_id'); // Add user_id column
+            $table->string('name'); // Add name column
             $table->text('content');
             $table->timestamps();
+
+            // Define the foreign key constraint for user_id
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
