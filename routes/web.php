@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +16,22 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
 
-Route::get('/', [HomeController::class, 'home']);
-Route::get('login', [AuthController::class, 'login']);
-Route::get('register', [AuthController::class, 'register']);
+Route::get('/', [HomeController::class, 'home'])->name('home');;
+
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'auth_login'])->name('auth_login');
+
+Route::post('logout', [AuthController::class, 'auth_logout'])->name('auth_logout');
+
+Route::get('register', [AuthController::class, 'register'])->name('register');
+Route::post('register', [AuthController::class, 'create_user'])->name('create_user');
+
+Route::get('forgot', [AuthController::class, 'forgot'])->name('forgot');
+
+
+
+Route::get('/blog/show/{post}', [BlogController::class, 'show'])->name('blog.show');
+
+Route::get('create', [BlogController::class, 'create_post'])->name('create_post');
+Route::post('/', [BlogController::class, 'blog_store'])->name('blog_store');
