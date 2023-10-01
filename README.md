@@ -9,8 +9,7 @@ Before you begin, ensure you have met the following requirements:
 - **Laravel**: Make sure you have Laravel 10.24.0 installed.
 - **PHP**: Ensure you have PHP 8.2.4 installed.
 - **Composer**: You need Composer 2.6.3 to manage dependencies.
-- **Web Server**: You will need a web server like Apache or Nginx.
-- **Database**: Set up a database server (MySQL, PostgreSQL, SQLite, etc.).
+- **XAMPP**: you need xampp for the database MySQL.
 
 ## Installation
 
@@ -35,6 +34,7 @@ Before you begin, ensure you have met the following requirements:
     php artisan serve
 
     The application will be available at http://localhost:8000.
+    XAMPP: start Mysql server
 
 5. **Access the Application:**
     ```bash
